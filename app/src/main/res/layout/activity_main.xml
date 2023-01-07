@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/custom_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:divider="@null"
+        android:background="@color/secondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/total_record"/>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:textColor="@color/base"
+        android:fontFamily="@font/uni_sans_heavy"
+        android:text="No record, you can add via add button at the menu bar."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:textStyle="italic"/>
+
+
+    <LinearLayout
+        android:id="@+id/total_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/base"
+        android:padding="4dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:textColor="@color/secondary"
+                android:fontFamily="@font/uni_sans_thin"
+                android:text="Total Footprint:"
+                android:textSize="12sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/total_footprint"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/uni_sans_heavy"
+                android:text="0"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="kg CO2"
+
+                android:fontFamily="@font/uni_sans_thin_italic"
+                android:textSize="12sp"
+                android:textColor="@color/secondary"
+                android:textStyle="italic"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:text="Total Fuel Cost:"
+                android:textColor="@color/secondary"
+
+                android:fontFamily="@font/uni_sans_thin"
+                android:textSize="12sp"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/total_fuel_cost"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+
+                android:fontFamily="@font/uni_sans_heavy"
+                android:text="0"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="CAD"
+                android:fontFamily="@font/uni_sans_thin_italic"
+                android:textColor="@color/secondary"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

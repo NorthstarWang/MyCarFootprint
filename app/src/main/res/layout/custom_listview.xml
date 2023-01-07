@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@color/base"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/gas_station_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/uni_sans_heavy"
+            android:gravity="bottom"
+            android:text="Gas Station Name"
+            android:textColor="@color/primary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="0dp"
+            android:fontFamily="@font/uni_sans_thin"
+            android:gravity="bottom"
+            android:text="Date: "
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gas_station_name" />
+
+        <TextView
+            android:id="@+id/date_visited"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/uni_sans_thin"
+            android:gravity="bottom"
+            android:text="2023/01/01"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/date_label"
+            app:layout_constraintStart_toEndOf="@id/date_label" />
+
+        <TextView
+            android:id="@+id/footprint_label"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_margin="8dp"
+            android:layout_marginRight="0dp"
+            android:fontFamily="@font/uni_sans_thin"
+            android:gravity="center"
+            android:text="Carbon Footprint: "
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_label" />
+
+
+        <TextView
+            android:id="@+id/footprint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:fontFamily="@font/uni_sans_heavy"
+            android:text="0"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/footprint_label"
+            app:layout_constraintStart_toEndOf="@+id/footprint_label" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/uni_sans_thin_italic"
+            android:text="kg CO2 "
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="italic"
+            app:layout_constraintBaseline_toBaselineOf="@id/footprint"
+            app:layout_constraintStart_toEndOf="@+id/footprint" />
+
+
+        <TextView
+            android:id="@+id/price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/uni_sans_thin"
+            android:gravity="center"
+            android:text="Cost: "
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/footprint_label" />
+
+
+        <TextView
+            android:id="@+id/calculated_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:fontFamily="@font/uni_sans_heavy"
+            android:text="0"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/price_label"
+            app:layout_constraintStart_toEndOf="@+id/price_label" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/uni_sans_thin_italic"
+            android:text="CAD "
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:textStyle="italic"
+            app:layout_constraintBaseline_toBaselineOf="@id/calculated_price"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/calculated_price" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
