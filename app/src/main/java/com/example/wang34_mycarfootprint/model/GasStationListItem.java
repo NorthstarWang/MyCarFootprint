@@ -1,8 +1,9 @@
 package com.example.wang34_mycarfootprint.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class GasStationListItem {
+public class GasStationListItem  implements Serializable {
 
     public enum FuelType{Gasoline,Diesel};
 

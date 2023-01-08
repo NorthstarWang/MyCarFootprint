@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">wang34-MyCarFootprint</string>
+    <string-array name="fuel_types">
+        <item>Gasoline</item>
+        <item>Diesel</item>
+    </string-array>
 </resources>

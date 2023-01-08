@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+    android:background="@color/base">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="1"
+                android:text="Gas Station Name: "
+                android:gravity="end"
+                android:textSize="16sp"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/uni_sans_thin"
+                android:id="@+id/dialog_label_gas_station_name"
+                android:labelFor="@id/dialog_edit_gas_station_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dialog_edit_gas_station_name"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondary"
+                android:fontFamily="@font/uni_sans_thin_italic"
+                app:layout_constraintHorizontal_weight="2"
+                android:id="@+id/dialog_edit_gas_station_name"
+                app:layout_constraintBaseline_toBaselineOf="@id/dialog_label_gas_station_name"
+                app:layout_constraintStart_toEndOf="@id/dialog_label_gas_station_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:autofillHints="Input gas station name"
+                android:inputType="text"
+                android:maxLength="30"
+                android:backgroundTint="@color/primary"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="1"
+                android:text="Date: "
+                android:gravity="end"
+                android:textSize="16sp"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/uni_sans_thin"
+                android:labelFor="@id/dialog_edit_date"
+                android:id="@+id/dialog_label_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dialog_edit_date"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="2"
+                android:id="@+id/dialog_edit_date"
+                android:textColor="@color/secondary"
+                android:fontFamily="@font/uni_sans_thin_italic"
+                app:layout_constraintBaseline_toBaselineOf="@id/dialog_label_date"
+                app:layout_constraintStart_toEndOf="@id/dialog_label_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:autofillHints="Input date visited"
+                android:inputType="date"
+                android:backgroundTint="@color/primary"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="1"
+                android:text="Fuel Type: "
+                android:gravity="end"
+                android:textSize="16sp"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/uni_sans_thin"
+                android:id="@+id/dialog_label_fuel_type"
+                android:labelFor="@id/dialog_edit_fuel_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dialog_edit_fuel_type"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dialog_edit_fuel_type"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintBaseline_toBaselineOf="@id/dialog_label_fuel_type"
+                app:layout_constraintStart_toEndOf="@id/dialog_label_fuel_type"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/dialog_edit_fuel_type_textview"
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/uni_sans_thin_italic"
+                    android:inputType="none"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="1"
+                android:text="Amount In Litre: "
+                android:gravity="end"
+                android:textSize="16sp"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/uni_sans_thin"
+                android:id="@+id/dialog_label_litre_amount"
+                android:labelFor="@id/dialog_edit_litre_amount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dialog_edit_litre_amount"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="2"
+                android:id="@+id/dialog_edit_litre_amount"
+                android:textColor="@color/secondary"
+                android:fontFamily="@font/uni_sans_thin_italic"
+                app:layout_constraintBaseline_toBaselineOf="@id/dialog_label_litre_amount"
+                app:layout_constraintStart_toEndOf="@id/dialog_label_litre_amount"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:autofillHints="Input positive integer amount"
+                android:inputType="number"
+                android:backgroundTint="@color/primary"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="1"
+                android:text="Price Per Litre: "
+                android:gravity="end"
+                android:textSize="16sp"
+                android:textColor="@color/primary"
+                android:fontFamily="@font/uni_sans_thin"
+                android:labelFor="@id/dialog_edit_price_per_litre"
+                android:id="@+id/dialog_label_price_per_litre"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/dialog_edit_price_per_litre"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="2"
+                android:id="@+id/dialog_edit_price_per_litre"
+                app:layout_constraintBaseline_toBaselineOf="@id/dialog_label_price_per_litre"
+                app:layout_constraintStart_toEndOf="@id/dialog_label_price_per_litre"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:autofillHints="Input price"
+                android:textColor="@color/secondary"
+                android:fontFamily="@font/uni_sans_thin_italic"
+                android:inputType="numberDecimal"
+                android:backgroundTint="@color/primary"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/button_apply_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:elevation="32dp"
+            android:fontFamily="@font/uni_sans_heavy"
+            android:backgroundTint="@color/base_strong"
+            android:text="Apply Change"
+            android:textColor="@color/primary" />
+
+    </LinearLayout>
+</RelativeLayout>
