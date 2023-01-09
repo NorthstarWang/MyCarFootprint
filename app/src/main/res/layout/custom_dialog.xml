@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="4dp"
     android:background="@color/base">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_weight="1"
-                android:text="Gas Station Name: "
+                android:text="@string/gas_station_name"
                 android:gravity="end"
                 android:textSize="16sp"
                 android:textColor="@color/primary"
@@ -60,7 +60,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_weight="1"
-                android:text="Date: "
+                android:text="@string/date"
                 android:gravity="end"
                 android:textSize="16sp"
                 android:textColor="@color/primary"
@@ -83,7 +83,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:autofillHints="Input date visited"
                 android:inputType="date"
-                android:backgroundTint="@color/primary"/>
+                android:backgroundTint="@color/primary"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:longClickable="false"
+                android:focusableInTouchMode="false"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,7 +101,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_weight="1"
-                android:text="Fuel Type: "
+                android:text="@string/fuel_type"
                 android:gravity="end"
                 android:textSize="16sp"
                 android:textColor="@color/primary"
@@ -112,21 +117,22 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintBaseline_toBaselineOf="@id/dialog_label_fuel_type"
-                app:layout_constraintStart_toEndOf="@id/dialog_label_fuel_type"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxStrokeColor="@color/primary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@id/dialog_label_fuel_type"
+                app:layout_constraintTop_toTopOf="@id/dialog_label_fuel_type">
 
                 <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:id="@+id/dialog_edit_fuel_type_textview"
-                    android:textColor="@color/secondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/uni_sans_thin_italic"
                     android:inputType="none"
-                    />
+                    android:textColor="@color/primary" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,7 +147,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_weight="1"
-                android:text="Amount In Litre: "
+                android:text="@string/amount_in_litre"
                 android:gravity="end"
                 android:textSize="16sp"
                 android:textColor="@color/primary"
@@ -177,7 +183,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_weight="1"
-                android:text="Price Per Litre: "
+                android:text="@string/price_per_litre"
                 android:gravity="end"
                 android:textSize="16sp"
                 android:textColor="@color/primary"
@@ -212,7 +218,7 @@
             android:elevation="32dp"
             android:fontFamily="@font/uni_sans_heavy"
             android:backgroundTint="@color/base_strong"
-            android:text="Apply Change"
+            android:text="@string/apply_change"
             android:textColor="@color/primary" />
 
     </LinearLayout>

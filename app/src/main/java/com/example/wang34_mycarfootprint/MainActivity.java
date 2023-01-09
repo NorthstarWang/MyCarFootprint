@@ -3,8 +3,9 @@ package com.example.wang34_mycarfootprint;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,24 +13,27 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wang34_mycarfootprint.design.GasStationListAdapter;
 import com.example.wang34_mycarfootprint.model.GasStationListItem;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final ArrayList<GasStationListItem> gasStationListItems = new ArrayList<GasStationListItem>();
+    public final ArrayList<GasStationListItem> gasStationListItems = new ArrayList<>();
     GasStationListAdapter gasStationListAdapter = new GasStationListAdapter(MainActivity.this, gasStationListItems);
-    private double totalFuelCost = 0.0;
-    private double totalFootprint = 0.0;
     public static final int LAUNCH_ITEM = 1;
 
 
@@ -40,26 +44,15 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.custom_listview);
 
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 1", new Date("2023/01/01"), GasStationListItem.FuelType.Gasoline, 20, 3.3));
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 2", new Date("2023/01/02"), GasStationListItem.FuelType.Diesel, 30, 3.3));
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 3", new Date("2023/01/03"), GasStationListItem.FuelType.Gasoline, 20, 2));
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 1", new Date("2023/01/01"), GasStationListItem.FuelType.Gasoline, 20, 3.3));
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 2", new Date("2023/01/02"), GasStationListItem.FuelType.Diesel, 30, 3.3));
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 3", new Date("2023/01/03"), GasStationListItem.FuelType.Gasoline, 20, 2));
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 1", new Date("2023/01/01"), GasStationListItem.FuelType.Gasoline, 20, 3.3));
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 2", new Date("2023/01/02"), GasStationListItem.FuelType.Diesel, 30, 3.3));
-        gasStationListItems.add(new GasStationListItem("Test Gas Station 3", new Date("2023/01/03"), GasStationListItem.FuelType.Gasoline, 20, 2));
-
         listView.setAdapter(gasStationListAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, DataActivity.class);
-                intent.putExtra("item", gasStationListItems.get(i));
-                intent.putExtra("index",i);
-                startActivityForResult(intent, LAUNCH_ITEM);
-            }
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Intent intent = new Intent(MainActivity.this, DataActivity.class);
+            intent.putExtra("item", gasStationListItems.get(i));
+            intent.putExtra("index",i);
+            startActivityForResult(intent, LAUNCH_ITEM);
         });
+
+        calculateTotal();
 
     }
 
@@ -75,29 +68,18 @@ public class MainActivity extends AppCompatActivity {
     public void onContentChanged() {
         super.onContentChanged();
         View empty = findViewById(R.id.empty);
-        ListView list = (ListView) findViewById(R.id.custom_listview);
+        ListView list = findViewById(R.id.custom_listview);
         list.setEmptyView(empty);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.item_delete:
-                //if no item yet, disable delete button
-                if (gasStationListItems.size() == 0) {
-                    Toast.makeText(this, "There is no data to delete yet.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "There is data to delete.", Toast.LENGTH_LONG).show();
-                }
-                return true;
-            case R.id.item_add:
-                showAddDialog();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.item_add) {
+            showAddDialog();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -105,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LAUNCH_ITEM) {
             if (resultCode == RESULT_OK) {
+                assert data != null;
                 if (data.hasExtra("operation")) {
                     switch (data.getStringExtra("operation")) {
                         case "delete":
@@ -112,7 +95,19 @@ public class MainActivity extends AppCompatActivity {
                             if(posToDelete!=-1)
                                 gasStationListItems.remove(posToDelete);
                             gasStationListAdapter.notifyDataSetChanged();
+                            calculateTotal();
                             break;
+                        case "edit":
+                            int posToEdit = data.getIntExtra("index",-1);
+                            GasStationListItem gasStationListItemEdit = (GasStationListItem)data.getSerializableExtra("object");
+                            if(posToEdit!=-1)
+                                //replace original item with edited version
+                                gasStationListItems.set(posToEdit,gasStationListItemEdit);
+                            //reopen activity with edited item
+                            Intent intent = new Intent(MainActivity.this, DataActivity.class);
+                            intent.putExtra("item", gasStationListItems.get(posToEdit));
+                            intent.putExtra("index",posToEdit);
+                            startActivityForResult(intent, LAUNCH_ITEM);
                         default:
                             break;
                     }
@@ -122,12 +117,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("SetTextI18n")
     void showAddDialog() {
+        String[] items = {"Gasoline","Diesel"};
 
         //inflate dialog
         final Dialog dialog = new Dialog(this);
         LayoutInflater layoutInflater = this.getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_dialog, null);
+        @SuppressLint("InflateParams") View view = layoutInflater.inflate(R.layout.custom_dialog, null);
 
         //initialize view
 
@@ -135,13 +132,60 @@ public class MainActivity extends AppCompatActivity {
         final EditText dateET = view.findViewById(R.id.dialog_edit_date);
         final EditText amountET = view.findViewById(R.id.dialog_edit_litre_amount);
         final EditText priceET = view.findViewById(R.id.dialog_edit_price_per_litre);
+        final AutoCompleteTextView fuelTypeTV = view.findViewById(R.id.dialog_edit_fuel_type_textview);
         final Button btnAdd = view.findViewById(R.id.button_apply_change);
-
         btnAdd.setText("Add visit");
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        //date textview click: date picker popup
+        final Calendar myCalendar= Calendar.getInstance();
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, null, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+        dateET.setOnClickListener(view12 -> {
+            datePickerDialog.getDatePicker().init(myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH), (datePicker, i, i1, i2) -> {
+                        myCalendar.set(i, i1, i2);
+                        //update label
+                        String myFormat="yyyy-MM-dd";
+                        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+                        dateET.setText(dateFormat.format(myCalendar.getTime()));
+                        datePickerDialog.dismiss();
+                    });
+            datePickerDialog.show();
+        });
+
+        //set fuelType dropdown selector
+        ArrayAdapter<String> fuelTypeAdapter = new ArrayAdapter<>(this, R.layout.dropdown_item, items);
+        fuelTypeTV.setAdapter(fuelTypeAdapter);
+
+        //Add visit button click: add visit to arrayList
+        btnAdd.setOnClickListener(view1 -> {
+            //validate input
+            if(nameET.getText().toString().length()>30||nameET.getText().toString().isEmpty()){
+                //alert if either length exceed 30 characters or no input.
+                Toast.makeText(MainActivity.this,"Invalid gas station name input",Toast.LENGTH_SHORT).show();
+            }else if(dateET.getText().toString().isEmpty()){
+                //no date selected
+                Toast.makeText(MainActivity.this,"Please select a date",Toast.LENGTH_SHORT).show();
+            }else if(fuelTypeTV.getText().toString().isEmpty()){
+                //no fuel type selected
+                Toast.makeText(MainActivity.this,"Please select a fuel type",Toast.LENGTH_SHORT).show();
+            }else if(amountET.getText().toString().isEmpty()){
+                //no amount input
+                Toast.makeText(MainActivity.this,"Invalid amount input",Toast.LENGTH_SHORT).show();
+            }else if(priceET.getText().toString().isEmpty()){
+                //no price input
+                Toast.makeText(MainActivity.this,"Invalid price input",Toast.LENGTH_SHORT).show();
+            }else{
+                //if all pass, add visit and update view
+                GasStationListItem.FuelType tempFuelType = fuelTypeTV.getText().toString().equals("Gasoline")?GasStationListItem.FuelType.Gasoline: GasStationListItem.FuelType.Diesel;
+                SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd",Locale.CANADA);
+                try {
+                    gasStationListItems.add(new GasStationListItem(nameET.getText().toString(),dateParser.parse(dateET.getText().toString()), tempFuelType, Integer.parseInt(amountET.getText().toString()), Math.round(Double.parseDouble(priceET.getText().toString()) * 100.0) / 100.0));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                gasStationListAdapter.notifyDataSetChanged();
+                calculateTotal();
                 dialog.dismiss();
             }
         });
@@ -151,5 +195,26 @@ public class MainActivity extends AppCompatActivity {
         dialog.setTitle("Add gas station visit");
         dialog.setContentView(view);
         dialog.show();
+    }
+
+    void calculateTotal(){
+        // calculate the total data in gasStationListItems
+        double tempTotalFootPrint = 0;
+        double tempTotalCost = 0;
+        for (GasStationListItem gasStationListItem:gasStationListItems
+             ) {
+            tempTotalFootPrint+=gasStationListItem.getFootprint();
+            tempTotalCost+=gasStationListItem.getCalculatedPrice();
+        }
+
+        updateTotal(tempTotalFootPrint,tempTotalCost);
+    }
+
+    void updateTotal(double totalFootprint, double totalFuelCost){
+        //update data to textView
+        TextView footprintTV = findViewById(R.id.total_footprint);
+        TextView costTV = findViewById(R.id.total_fuel_cost);
+        footprintTV.setText(String.format(Locale.CANADA,"%d",Math.round(totalFootprint)));
+        costTV.setText(String.format(Locale.CANADA,"%.2f",totalFuelCost));
     }
 }

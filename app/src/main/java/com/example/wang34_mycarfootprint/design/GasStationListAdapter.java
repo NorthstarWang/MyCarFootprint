@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class GasStationListAdapter extends BaseAdapter {
 
@@ -60,10 +61,10 @@ public class GasStationListAdapter extends BaseAdapter {
         GasStationListItem gasStationListItem = gasStationList.get(i);
 
         //format data into string to be shown
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
         dateVisitedString = dateFormat.format(gasStationListItem.getGasStationVisitDate());
         calculatedPrice = df.format(gasStationListItem.getCalculatedPrice());
-        footprintString = String.valueOf(gasStationListItem.getFootprint());
+        footprintString = String.format(Locale.CANADA,"%d",Math.round(gasStationListItem.getFootprint()));
 
         //display data
         containerView.gasStationName.setText(gasStationListItem.getGasStationName());

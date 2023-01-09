@@ -5,15 +5,15 @@ import java.util.Date;
 
 public class GasStationListItem  implements Serializable {
 
-    public enum FuelType{Gasoline,Diesel};
+    public enum FuelType{Gasoline,Diesel}
 
     private String gasStationName;
     private Date gasStationVisitDate;
     private FuelType fuelType;
     private int litreAmount;
     private double pricePerLitre;
-    private static double GASOLINE_COEFFICIENT = 2.32;
-    private static double DIESEL_COEFFICIENT = 2.69;
+    private static final double GASOLINE_COEFFICIENT = 2.32;
+    private static final double DIESEL_COEFFICIENT = 2.69;
 
     public GasStationListItem(String gasStationName,Date gasStationVisitDate,FuelType fuelType,int litreAmount,double pricePerLitre) {
         this.gasStationName = gasStationName;
