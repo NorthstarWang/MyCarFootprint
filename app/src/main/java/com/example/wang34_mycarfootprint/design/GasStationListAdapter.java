@@ -71,6 +71,7 @@ public class GasStationListAdapter extends BaseAdapter {
         containerView.dateVisited.setText(dateVisitedString);
         containerView.calculatedPrice.setText(calculatedPrice);
         containerView.footPrint.setText(footprintString);
+        containerView.fuelType.setText(gasStationListItem.getFuelType());
 
         return view;
     }
@@ -80,12 +81,14 @@ public class GasStationListAdapter extends BaseAdapter {
         private final TextView dateVisited;
         private final TextView calculatedPrice;
         private final TextView footPrint;
+        private final TextView fuelType;
 
         public ContainerView(View view){
             gasStationName = view.findViewById(R.id.gas_station_name);
             dateVisited = view.findViewById(R.id.date_visited);
             footPrint = view.findViewById(R.id.footprint);
             calculatedPrice = view.findViewById(R.id.calculated_price);
+            fuelType = view.findViewById(R.id.fuel_type);
         }
     }
 }

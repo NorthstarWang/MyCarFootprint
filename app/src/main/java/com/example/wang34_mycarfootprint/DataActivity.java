@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,22 @@ import java.util.Locale;
 
 public class DataActivity extends AppCompatActivity {
 
+    private GasStationListItem gasStationListItem;
+    private int pos;
+
+    //component
+    private Button buttonEdit;
+    private Button buttonDelete;
+    private TextView nameTV;
+    private TextView dateTV;
+    private TextView amountTV;
+    private TextView priceTV;
+    private TextView fuelTypeTV;
+    private TextView totalPriceTV;
+    private TextView totalFootprintTV;
+
+    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.CANADA);
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +51,22 @@ public class DataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data);
 
         //get intent data
-        GasStationListItem gasStationListItem = (GasStationListItem) getIntent().getSerializableExtra("item");
-        int pos = getIntent().getIntExtra("index",0);
+        gasStationListItem = (GasStationListItem) getIntent().getSerializableExtra("item");
+        pos = getIntent().getIntExtra("index",0);
 
-        //component
-        Button buttonEdit = findViewById(R.id.button_edit);
-        Button buttonDelete = findViewById(R.id.button_delete);
-        final TextView nameTV = findViewById(R.id.textView_gas_station_name);
-        final TextView dateTV = findViewById(R.id.textView_date);
-        final TextView amountTV = findViewById(R.id.textView_litre_amount);
-        final TextView priceTV = findViewById(R.id.textView_price_per_litre);
-        final TextView fuelTypeTV = findViewById(R.id.textView_fuel_type);
-        final TextView totalPriceTV = findViewById(R.id.textView_total_price);
-        final TextView totalFootprintTV = findViewById(R.id.textView_total_footprint);
+        //component binding
+        buttonEdit = findViewById(R.id.button_edit);
+        buttonDelete = findViewById(R.id.button_delete);
+        nameTV = findViewById(R.id.textView_gas_station_name);
+        dateTV = findViewById(R.id.textView_date);
+        amountTV = findViewById(R.id.textView_litre_amount);
+        priceTV = findViewById(R.id.textView_price_per_litre);
+        fuelTypeTV = findViewById(R.id.textView_fuel_type);
+        totalPriceTV = findViewById(R.id.textView_total_price);
+        totalFootprintTV = findViewById(R.id.textView_total_footprint);
 
         //append value
         nameTV.setText(gasStationListItem.getGasStationName());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.CANADA);
         fuelTypeTV.setText(gasStationListItem.getFuelType());
         dateTV.setText(dateFormat.format(gasStationListItem.getGasStationVisitDate()));
         amountTV.setText(gasStationListItem.getLitreAmount()+" L");
@@ -66,8 +82,6 @@ public class DataActivity extends AppCompatActivity {
     }
 
     void showEditDialog(GasStationListItem gasStationListItem, int pos) {
-        String[] items = {"Gasoline","Diesel"};
-
         //inflate dialog
         final Dialog dialog = new Dialog(this);
         LayoutInflater layoutInflater = this.getLayoutInflater();
@@ -83,7 +97,6 @@ public class DataActivity extends AppCompatActivity {
 
         //fill in value
         nameET.setText(gasStationListItem.getGasStationName());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.CANADA);
         dateET.setText(dateFormat.format(gasStationListItem.getGasStationVisitDate()));
         amountET.setText(String.valueOf(gasStationListItem.getLitreAmount()));
         priceET.setText(String.format(Locale.CANADA,"%.2f", gasStationListItem.getPricePerLitre()));
@@ -106,7 +119,7 @@ public class DataActivity extends AppCompatActivity {
         });
 
         //set fuelType dropdown selector
-        ArrayAdapter<String> fuelTypeAdapter = new ArrayAdapter<>(this, R.layout.dropdown_item, items);
+        ArrayAdapter<String> fuelTypeAdapter = new ArrayAdapter<>(this, R.layout.dropdown_item, GasStationListItem.getItems());
         fuelTypeTV.setAdapter(fuelTypeAdapter);
         fuelTypeTV.setText(gasStationListItem.getFuelType(),false);
 

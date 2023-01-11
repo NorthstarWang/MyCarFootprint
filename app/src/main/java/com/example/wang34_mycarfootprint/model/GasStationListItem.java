@@ -14,6 +14,7 @@ public class GasStationListItem  implements Serializable {
     private double pricePerLitre;
     private static final double GASOLINE_COEFFICIENT = 2.32;
     private static final double DIESEL_COEFFICIENT = 2.69;
+    private static final String[] items = {"Gasoline","Diesel"};
 
     public GasStationListItem(String gasStationName,Date gasStationVisitDate,FuelType fuelType,int litreAmount,double pricePerLitre) {
         this.gasStationName = gasStationName;
@@ -55,23 +56,7 @@ public class GasStationListItem  implements Serializable {
         return litreAmount;
     }
 
-    public void setGasStationName(String gasStationName) {
-        this.gasStationName = gasStationName;
-    }
-
-    public void setFuelType(FuelType fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public void setGasStationVisitDate(Date gasStationVisitDate) {
-        this.gasStationVisitDate = gasStationVisitDate;
-    }
-
-    public void setLitreAmount(int litreAmount) {
-        this.litreAmount = litreAmount;
-    }
-
-    public void setPricePerLitre(double pricePerLitre) {
-        this.pricePerLitre = pricePerLitre;
+    public static String[] getItems() {
+        return items;
     }
 }
